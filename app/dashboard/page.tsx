@@ -15,10 +15,20 @@ async function getData(userId: string) {
       id: userId,
     },
     select: {
-      Notes: true,
-      Subscription: {
+      Notes: {
         select: {
-          status: true,
+          title: true,
+          id: true,
+          description: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        Subscription: {
+          select: {
+            status: true,
+          },
         },
       },
     },
