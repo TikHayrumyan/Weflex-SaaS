@@ -15,6 +15,7 @@ import {
   StripeSubscriptionCreationButton,
 } from "@/app/components/submit_button";
 import { unstable_noStore as NoStore } from "next/cache";
+import prisma from "@/app/lib/db";
 
 const featureItems = [
   {
@@ -37,7 +38,7 @@ const featureItems = [
 async function getData(userId: string) {
   NoStore();
 
-  const data = await prisma?.subscription.findUnique({
+  const data = await prisma.subscription.findUnique({
     where: {
       userId: userId,
     },
@@ -63,7 +64,7 @@ async function Billing() {
   async function createSubscription() {
     "use server";
 
-    const dbUser = await prisma?.user.findUnique({
+    const dbUser = await prisma.user.findUnique({
       where: {
         id: user?.id,
       },
