@@ -25,10 +25,11 @@ async function getData(userId: string) {
         orderBy: {
           createdAt: "desc",
         },
-        Subscription: {
-          select: {
-            status: true,
-          },
+      },
+
+      Subscription: {
+        select: {
+          status: true,
         },
       },
     },
