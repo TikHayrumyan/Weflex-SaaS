@@ -14,17 +14,11 @@ import Link from "next/link";
 import prisma from "@/app/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import { revalidatePath,unstable_noStore as NoStore  } from "next/cache";
+import { revalidatePath, unstable_noStore as NoStore } from "next/cache";
 
-export async function getData({
-  userId,
-  noteId,
-}: {
-  userId: string;
-  noteId: string;
-}) {
-  NoStore()
 
+async function getData({ userId, noteId }: { userId: string; noteId: string }) {
+  NoStore();
   const data = await prisma.note.findUnique({
     where: {
       id: noteId,
@@ -45,15 +39,12 @@ export default async function DynamicNote({
 }: {
   params: { id: string };
 }) {
-  NoStore()
-
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const data = await getData({ userId: user?.id as string, noteId: params?.id });
+  const data = await getData({ userId: user?.id as string, noteId: params.id });
 
   async function PostData(formData: FormData) {
-    "use server";
-
+    'use server'
     if (!user) {
       throw new Error("not authorized");
     }
