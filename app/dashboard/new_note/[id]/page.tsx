@@ -49,7 +49,7 @@ export default async function DynamicNote({
 
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const data = await getData({ userId: user?.id as string, noteId: params.id });
+  const data = await getData({ userId: user?.id as string, noteId: params?.id });
 
   async function PostData(formData: FormData) {
     "use server";
